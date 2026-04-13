@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Trabajos USFX\\Unreal Projects\\ObjectMovement\\Source\\ObjectMovement\\ObjectMovement.Build.cs",
+		"D:\\Trabajos USFX\\Unreal Projects\\ObjectMovement\\Source\\ObjectMovement.Target.cs",
+		"D:\\Trabajos USFX\\Unreal Projects\\ObjectMovement\\Source\\ObjectMovementEditor.Target.cs"
+	],
+	"EngineVersion": "4.27.2"
+}

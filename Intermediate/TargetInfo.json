@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "ObjectMovement",
+			"Path": "D:\\Trabajos USFX\\Unreal Projects\\ObjectMovement\\Source\\ObjectMovement.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "ObjectMovementEditor",
+			"Path": "D:\\Trabajos USFX\\Unreal Projects\\ObjectMovement\\Source\\ObjectMovementEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
