@@ -1,11 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+//Probsndoooooooooooooooooo
 
 #include "TopDownMover.h"
 #include "Components/InputComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
-
 
 // Sets default values
 ATopDownMover::ATopDownMover()
@@ -28,7 +27,7 @@ ATopDownMover::ATopDownMover()
 
     // --- NEW CODE: Find and assign the Cube ---
     // We use ConstructorHelpers to find the asset path of the default Engine cube
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMeshAsset(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_QuadPyramid.Shape_QuadPyramid'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
 
     // Check if we successfully found the asset to prevent crashes
     if (CubeMeshAsset.Succeeded())
@@ -105,22 +104,6 @@ void ATopDownMover::Tick(float DeltaTime)
         case EMoveDirection::Left:
             MovementStep.Y = -1.0f;
             break;
-        case EMoveDirection::UpRinght:
-            MovementStep.X = 1.0f;
-            MovementStep.Y = 1.0f;
-            break;
-        case EMoveDirection::UpLeft:
-            MovementStep.X = -1.0f;
-            MovementStep.Y = 1.0f;
-            break;
-        case EMoveDirection::DownRinght:
-            MovementStep.X = 1.0f;
-            MovementStep.Y = -1.0f;
-            break;
-        case EMoveDirection::DownLeft:
-            MovementStep.X = -1.0f;
-            MovementStep.Y = -1.0f;
-            break;
         }
 
         // Calculate the new position ensuring frame-rate independence using DeltaTime
@@ -130,7 +113,6 @@ void ATopDownMover::Tick(float DeltaTime)
     }
 
 }
-
 void ATopDownMover::ToggleMovement()
 {
     // Invert the boolean state
@@ -159,4 +141,3 @@ void ATopDownMover::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
     // Bind the action AND force it to pass the input down the stack
     PlayerInputComponent->BindAction("ToggleMove", IE_Pressed, this, &ATopDownMover::ToggleMovement).bConsumeInput = false;
 }
-
