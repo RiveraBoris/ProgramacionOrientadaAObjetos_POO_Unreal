@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "TopDownMover.h"
 #include "Components/InputComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -102,6 +101,22 @@ void ATopDownMover::Tick(float DeltaTime)
             MovementStep.Y = 1.0f;
             break;
         case EMoveDirection::Left:
+            MovementStep.Y = -1.0f;
+            break;
+        case EMoveDirection::ArribaDerecha:
+            MovementStep.X = 1.0f;
+            MovementStep.Y = 1.0f;
+            break;
+        case EMoveDirection::ArribaIzquierda:
+            MovementStep.X = -1.0f;
+            MovementStep.Y = 1.0f;
+            break;
+        case EMoveDirection::AbajoDerecha:
+            MovementStep.X = 1.0f;
+            MovementStep.Y = -1.0f;
+            break;
+        case EMoveDirection::AbajoIzquierda:
+            MovementStep.X = 1.0f;
             MovementStep.Y = -1.0f;
             break;
         }

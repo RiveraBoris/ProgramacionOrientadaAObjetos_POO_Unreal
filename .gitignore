@@ -361,3 +361,18 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# =========================
+# UNREAL ENGINE (IMPORTANTE)
+# =========================
+
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Opcional pero recomendado
+.vs/
+*.sln
+
+# Archivos de crash
+CrashReportClient/
