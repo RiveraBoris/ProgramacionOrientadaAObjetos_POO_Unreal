@@ -103,20 +103,20 @@ void ATopDownMover::Tick(float DeltaTime)
         case EMoveDirection::Left:
             MovementStep.Y = -1.0f;
             break;
-        case EMoveDirection::ArribaDerecha:
+        case EMoveDirection::UpRinght:
             MovementStep.X = 1.0f;
             MovementStep.Y = 1.0f;
             break;
-        case EMoveDirection::ArribaIzquierda:
-            MovementStep.X = -1.0f;
-            MovementStep.Y = 1.0f;
-            break;
-        case EMoveDirection::AbajoDerecha:
+        case EMoveDirection::UpLeft:
             MovementStep.X = 1.0f;
             MovementStep.Y = -1.0f;
             break;
-        case EMoveDirection::AbajoIzquierda:
-            MovementStep.X = 1.0f;
+        case EMoveDirection::DownRinght:
+            MovementStep.X = -1.0f;
+            MovementStep.Y = 1.0f;
+            break;
+        case EMoveDirection::DownLeft:
+            MovementStep.X = -1.0f;
             MovementStep.Y = -1.0f;
             break;
         }
