@@ -14,9 +14,9 @@ enum class EMoveDirection : uint8
     Down    UMETA(DisplayName = "Down"),
     Left    UMETA(DisplayName = "Left"),
     Right   UMETA(DisplayName = "Right"),
-    UpRinght    UMETA(DisplayName = "UpRinght"),
+    UpRight    UMETA(DisplayName = "UpRight"),
     UpLeft    UMETA(DisplayName = "UpLeft"),
-    DownRinght   UMETA(DisplayName = "DownRinght"),
+    DownRight   UMETA(DisplayName = "DownRight"),
     DownLeft   UMETA(DisplayName = "DownLeft")
 };
 
