@@ -1,30 +1,23 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Enemy.h"
-#include "PointActor.h" // Necesario para conocer la estructura de APointActor
+#include "PointActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 
 AEnemy::AEnemy()
 {
-    // Habilitamos el Tick para que pueda actualizar su posición en cada frame
     PrimaryActorTick.bCanEverTick = true;
 
-    // 1. Configuramos la Malla
     EnemyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("EnemyMesh"));
     RootComponent = EnemyMesh;
 
-    // Opcional: Cargamos la forma básica de un cono (pirámide) que viene por defecto en el motor.
-    // Esto ahorra tener que asignar la malla manualmente en el editor para pruebas rápidas.
     static ConstructorHelpers::FObjectFinder<UStaticMesh> ConeAsset(TEXT("StaticMesh'/Engine/BasicShapes/Cone.Cone'"));
     if (ConeAsset.Succeeded())
     {
         EnemyMesh->SetStaticMesh(ConeAsset.Object);
     }
 
-    // 2. Valores por defecto
-    MovementSpeed = 300.0f; // 3 metros por segundo
-    TargetPoint = nullptr;
+    MovementSpeed = 300.0f;
+    CurrentPointIndex = 0;
 }
 
 void AEnemy::BeginPlay()
@@ -36,29 +29,34 @@ void AEnemy::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    // Si tenemos un objetivo asignado, procedemos a movernos
-    if (TargetPoint != nullptr)
+    // The Tick function is now incredibly clean. 
+    // It only triggers the movement logic if we have points assigned.
+    if (PatrolPoints.Num() > 0)
     {
-        FVector CurrentLocation = GetActorLocation();
-        FVector TargetLocation = TargetPoint->GetActorLocation();
+        GoTo(PatrolPoints[CurrentPointIndex], DeltaTime);
+    }
+}
 
-        // Verificamos la distancia para evitar que el objeto "tiemble" al llegar al punto exacto
-        float DistanceToTarget = FVector::Dist(CurrentLocation, TargetLocation);
+// All the complexity is now encapsulated here
+void AEnemy::GoTo(APointActor* Target, float DeltaTime)
+{
+    // Safety check in case a point in the array is empty/null in the editor
+    if (Target == nullptr) return;
 
-        if (DistanceToTarget > 5.0f) // Tolerancia de 5 unidades
-        {
-            // 1. Obtener el vector dirección: (Destino - Origen) y normalizarlo (longitud = 1)
-            FVector Direction = (TargetLocation - CurrentLocation).GetSafeNormal();
+    FVector CurrentLocation = GetActorLocation();
+    FVector TargetLocation = Target->GetActorLocation();
 
-            // 2. Calcular la nueva posición (Velocidad * Tiempo)
-            FVector NewLocation = CurrentLocation + (Direction * MovementSpeed * DeltaTime);
-
-            // 3. Aplicar el movimiento
-            SetActorLocation(NewLocation);
-
-            // Opcional: Hacer que el enemigo rote para mirar hacia el punto
-            // FRotator NewRotation = Direction.Rotation();
-            // SetActorRotation(NewRotation);
-        }
+    // Check if we reached the target
+    if (FVector::Dist(CurrentLocation, TargetLocation) <= 5.0f)
+    {
+        // We reached the point, cycle to the next one for the NEXT frame
+        CurrentPointIndex = (CurrentPointIndex + 1) % PatrolPoints.Num();
+    }
+    else
+    {
+        // We need to move towards the target
+        FVector Direction = (TargetLocation - CurrentLocation).GetSafeNormal();
+        FVector NewLocation = CurrentLocation + (Direction * MovementSpeed * DeltaTime);
+        SetActorLocation(NewLocation);
     }
 }
